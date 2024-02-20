@@ -17,4 +17,6 @@ PYBIND11_MODULE(speeding_up, m)
   m.def("plain_sum_cpp_par", &plain_sum_cpp_par, "A function that sums N random numbers (parallel)");
   m.def("multi_operation_cpp_par", &multi_operation_cpp_par, "A function that performs multi operations on N random numbers (parallel)");
   m.def("complex_operation_cpp_par", &complex_operation_cpp_par, "A function that performs conditional operations on N random numbers (parallel)");
+
+  m.def("cpp_no_op", &cpp_no_op, "A function that does nothing");
 }

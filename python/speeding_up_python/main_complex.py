@@ -66,9 +66,20 @@ print(f"Numba  result:\t{result}\t Time: {end-start}, (w/o compilation)")
 start = time.time()
 result = spd.complex_operation_cpp(numbers)
 end = time.time()
-print(f"C++    result:\t{result}\t Time: {end-start}")
+cpp1 = end-start
+print(f"C++    result:\t{result}\t Time: {cpp1}")
 
 start = time.time()
 result = spd.complex_operation_cpp_par(numbers)
 end = time.time()
-print(f"C++    result:\t{result}\t Time: {end-start}, (parallel)")
+cpp2 = end-start
+print(f"C++    result:\t{result}\t Time: {cpp2}, (parallel)")
+
+
+start = time.time()
+result = spd.cpp_no_op(numbers)
+end = time.time()
+no_op_time = end-start
+print(f"C++    result:\t{result}\t\t\t Time: {no_op_time}, (no-op)")
+# print(f"C++    result:\t{result}\t Time: {cpp1 - no_op_time}, (no-op subtracted)")
+# print(f"C++    result:\t{result}\t Time: {cpp2 - no_op_time}, (parallel, no-op subtracted)")

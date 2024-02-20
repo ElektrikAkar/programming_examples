@@ -14,6 +14,8 @@
 #include <cmath>
 #include <omp.h>
 
+double cpp_no_op(std::vector<double> const &numbers) { return 42; }
+
 double plain_sum_cpp(std::vector<double> const &numbers)
 {
   return std::reduce(numbers.cbegin(), numbers.cend());
