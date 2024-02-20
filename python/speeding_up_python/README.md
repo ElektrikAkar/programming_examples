@@ -20,45 +20,30 @@ conda install -c conda-forge pybind11
 # Some results:
 - Device: Intel i7-12800H 2.40 GHz
 
-python/speeding_up_python/main_plain.py
-Python result:  25000189.451614816       Time: 2.811161994934082
-NumPy  result:  25000189.45161797        Time: 0.03600001335144043
-Numba  result:  25000189.45161791        Time: 0.4365115165710449, (with compilation)
-Numba  result:  25000189.45161791        Time: 0.02200031280517578, (w/o compilation)
-C++    result:  25000189.451615952       Time: 1.2973244190216064
-C++    result:  25000189.451617766       Time: 1.307081699371338, (parallel)
-
-python/speeding_up_python/main_multi.py
-Python result:  232163171.23635164       Time: 3.139641761779785
-NumPy  result:  232163171.2363152        Time: 0.20402264595031738
-Numba  result:  232163171.23631382       Time: 0.6302661895751953, (with compilation)
-Numba  result:  232163171.23631382       Time: 0.12171316146850586, (w/o compilation)
-C++    result:  232163171.23630416       Time: 0.32759976387023926
-C++    result:  232163171.2363156        Time: 0.27073073387145996, (parallel)
-
-
-python/speeding_up_python/main_complex.py
-Python result:  241740875.3327055        Time: 4.0082175731658936
-NumPy  result:  241740875.33273938       Time: 0.2650606632232666
-Numba  result:  241740875.33270553       Time: 0.6792054176330566, (with compilation)
-Numba  result:  241740875.33270553       Time: 0.13795161247253418, (w/o compilation)
-C++    result:  241740875.3327055        Time: 0.4139556884765625
-C++    result:  241740875.3327395        Time: 0.2879066467285156, (parallel)
-
-
-
-Native C++ results: 
-
-Plain sum:
-C++    result: 2.49974e+07      Time: 0.0191504 (native)
-C++    result: 2.49974e+07      Time: 0.007704 (native, par)
-
-
-Multi sum:
-C++    result: 2.32159e+08      Time: 0.0745408 (native)
-C++    result: 2.32159e+08      Time: 0.0123312 (native, par)
-
-
-Complex sum:
-C++    result: 2.41743e+08      Time: 0.142452 (native)
-C++    result: 2.41743e+08      Time: 0.0174707 (native, par)
+| File                                | Language | Result             | Time (s) | Remarks            |
+|-------------------------------------|----------|--------------------|----------|--------------------|
+| main_plain.py                       | Python   | 25000189.45161482  | 2.811162 |                    |
+|                                     | NumPy    | 25000189.45161797  | 0.036000 |                    |
+|                                     | Numba    | 25000189.45161791  | 0.436512 | (with compilation) |
+|                                     | Numba    | 25000189.45161791  | 0.022000 | (w/o compilation)  |
+|                                     | C++      | 25000189.45161595  | 1.297324 |                    |
+|                                     | C++      | 25000189.45161777  | 1.307082 | (parallel)         |
+| main_multi.py                       | Python   | 232163171.2363516  | 3.139642 |                    |
+|                                     | NumPy    | 232163171.2363152  | 0.204023 |                    |
+|                                     | Numba    | 232163171.2363138  | 0.630266 | (with compilation) |
+|                                     | Numba    | 232163171.2363138  | 0.121713 | (w/o compilation)  |
+|                                     | C++      | 232163171.2363042  | 0.327600 |                    |
+|                                     | C++      | 232163171.2363156  | 0.270731 |   (parallel)       |
+| main_complex.py                     | Python   | 241740875.3327055  | 4.008218 |                    |
+|                                     | NumPy    | 241740875.3327394  | 0.265061 |                    |
+|                                     | Numba    | 241740875.3327055  | 0.679205 | (with compilation) |
+|                                     | Numba    | 241740875.3327055  | 0.137952 | (w/o compilation)  |
+|                                     | C++      | 241740875.3327055  | 0.413956 |                    |
+|                                     | C++      | 241740875.3327395  | 0.287907 | (parallel)         |
+| Native C++ (Plain sum)              | C++      | 2.49974e+07        | 0.019150 |                    |
+|                                     | C++      | 2.49974e+07        | 0.007704 | (parallel)         |
+| Native C++ (Multi sum)              | C++      | 2.32159e+08        | 0.074541 |                    |
+|                                     | C++      | 2.32159e+08        | 0.012331 | (parallel)         |
+| Native C++ (Complex sum)            | C++      | 2.41743e+08        | 0.142452 |                    |
+|                                     | C++      | 2.41743e+08        | 0.017471 | (parallel)         |
+ 
