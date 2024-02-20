@@ -18,6 +18,7 @@ conda install -c conda-forge pybind11
 ```
 
 # Some results:
+- Device: Intel i7-12800H 2.40 GHz
 
 python/speeding_up_python/main_plain.py
 Python result:  25000189.451614816       Time: 2.811161994934082
