@@ -3,9 +3,14 @@ import numpy as np
 import time
 from numba import jit, njit, prange
 
+import jax.numpy as jnp
+import jax
+
 # Number crunching plain:
 N = 50_000_000
 numbers = np.random.rand(N)
+numbers_cpp = spd.vector_double(numbers)  
+numbers_jax = jnp.array(numbers)
 
 def plain_sum_py(numbers):
     total = 0
@@ -27,6 +32,15 @@ start = time.time()
 result = plain_sum_np(numbers)
 end = time.time()
 print(f"NumPy  result:\t{result}\t Time: {end-start}")
+
+#%%
+
+plain_sum_jax = jax.jit(plain_sum_np)
+result = plain_sum_jax(numbers_jax)
+start = time.time()
+result = plain_sum_jax(numbers_jax)
+end = time.time()
+print(f"Jax    result:\t{result}\t\t Time: {end-start}")
 
 #%%
 
@@ -66,7 +80,6 @@ end = time.time()
 print(f"Numba  result:\t{result}\t Time: {end-start}, (w/o compilation, par)")
 
 #%%
-numbers_cpp = spd.vector_double(numbers)  
 
 start = time.time()
 result = spd.plain_sum_cpp(numbers_cpp)
