@@ -20,7 +20,7 @@ result = multi_operation_py(numbers)
 end = time.time()
 print(f"Python result:\t{result}\t Time: {end-start}")
 
-#--------------
+#%%
 
 def multi_operation_np(numbers):
     a = 2.34
@@ -31,7 +31,7 @@ result = multi_operation_np(numbers)
 end = time.time()
 print(f"NumPy  result:\t{result}\t Time: {end-start}")
 
-#--------------
+#%%
 
 @njit(fastmath = True)
 def multi_operation_numba(numbers):
@@ -51,6 +51,8 @@ result = multi_operation_numba(numbers)
 end = time.time()
 print(f"Numba  result:\t{result}\t Time: {end-start}, (w/o compilation)")
 
+#%%
+
 @njit(fastmath=True, parallel=True)
 def multi_operation_numba_par(numbers):
     total = 0
@@ -69,7 +71,7 @@ end = time.time()
 print(f"Numba  result:\t{result}\t Time: {end-start}, (w/o compilation, par)")
 
 
-# ----
+#%%
 numbers_cpp = spd.vector_double(numbers)  
 
 start = time.time()
@@ -84,10 +86,10 @@ end = time.time()
 cpp2 = end-start
 print(f"C++    result:\t{result}\t Time: {cpp2}, (parallel)")
 
-start = time.time()
-result = spd.cpp_no_op(numbers_cpp)
-end = time.time()
-no_op_time = end-start
-print(f"C++    result:\t{result}\t\t\t Time: {no_op_time}, (no-op)")
+# start = time.time()
+# result = spd.cpp_no_op(numbers_cpp)
+# end = time.time()
+# no_op_time = end-start
+# print(f"C++    result:\t{result}\t\t\t Time: {no_op_time}, (no-op)")
 # print(f"C++    result:\t{result}\t Time: {cpp1 - no_op_time}, (no-op subtracted)")
 # print(f"C++    result:\t{result}\t Time: {cpp2 - no_op_time}, (parallel, no-op subtracted)")

@@ -7,6 +7,7 @@ from math import sin, log
 N = 10_000_000
 numbers = np.random.rand(N)
 
+
 def complex_operation_py(numbers):
     total = 0
     for i in range(numbers.size):
@@ -24,7 +25,7 @@ result = complex_operation_py(numbers)
 end = time.time()
 print(f"Python result:\t{result}\t Time: {end-start}")
 
-#--------------
+#%%
 
 def complex_operation_np(numbers):
     a = np.where(numbers < 0.5, 2.34, 1.44)
@@ -37,7 +38,7 @@ result = complex_operation_np(numbers)
 end = time.time()
 print(f"NumPy  result:\t{result}\t Time: {end-start}")
 
-#--------------
+#%%
 
 @njit(fastmath = True)
 def complex_operation_numba(numbers):
@@ -62,7 +63,7 @@ result = complex_operation_numba(numbers)
 end = time.time()
 print(f"Numba  result:\t{result}\t Time: {end-start}, (w/o compilation)")
 
-
+#%%
 @njit(fastmath = True, parallel=True)
 def complex_operation_numba_par(numbers):
     total = 0
@@ -85,7 +86,7 @@ result = complex_operation_numba_par(numbers)
 end = time.time()
 print(f"Numba  result:\t{result}\t Time: {end-start}, (w/o compilation)")
 
-# ----
+#%%
 numbers_cpp = spd.vector_double(numbers)  
 
 start = time.time()
@@ -101,10 +102,10 @@ cpp2 = end-start
 print(f"C++    result:\t{result}\t Time: {cpp2}, (parallel)")
 
 
-start = time.time()
-result = spd.cpp_no_op(numbers_cpp)
-end = time.time()
-no_op_time = end-start
-print(f"C++    result:\t{result}\t\t\t Time: {no_op_time}, (no-op)")
+# start = time.time()
+# result = spd.cpp_no_op(numbers_cpp)
+# end = time.time()
+# no_op_time = end-start
+# print(f"C++    result:\t{result}\t\t\t Time: {no_op_time}, (no-op)")
 # print(f"C++    result:\t{result}\t Time: {cpp1 - no_op_time}, (no-op subtracted)")
 # print(f"C++    result:\t{result}\t Time: {cpp2 - no_op_time}, (parallel, no-op subtracted)")

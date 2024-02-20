@@ -46,7 +46,11 @@ if(MSVC)
     "$<$<CONFIG:Release>:/Ox>"           # Enable Most Speed Optimizations
     "$<$<CONFIG:Release>:/GL>"           # Whole program optimisation
     "$<$<CONFIG:Release>:/GS->"          # Disable security checks
-    "$<$<CONFIG:Release>:/arch:AVX>"     # Enhanced instruction set (adjust as needed)
+    "$<$<CONFIG:Release>:/GR->"          # Disable RTTI
+    # "$<$<CONFIG:Release>:/EHsc->"        # Disable exception handling
+    "$<$<CONFIG:Release>:/favor:INTEL64>"    # Enhanced instruction set (adjust as needed)
+    "$<$<CONFIG:Release>:/arch:AVX2>"    # Enhanced instruction set (adjust as needed)
+
 ) 
 set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /LTCG")
 
