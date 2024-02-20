@@ -40,14 +40,22 @@ endif()
 
 if(MSVC)
   message(STATUS "Building for MSVC")
-  add_compile_options("$<$<CONFIG:Release>:/O2>")
-  add_compile_options("$<$<CONFIG:Release>:/fp:fast>")
+  add_compile_options(
+    "$<$<CONFIG:Release>:/O2>"           # Optimise for speed
+    "$<$<CONFIG:Release>:/fp:fast>"      # Fast floating-point model
+    "$<$<CONFIG:Release>:/Ox>"           # Enable Most Speed Optimizations
+    "$<$<CONFIG:Release>:/GL>"           # Whole program optimisation
+    "$<$<CONFIG:Release>:/GS->"          # Disable security checks
+    "$<$<CONFIG:Release>:/arch:AVX>"     # Enhanced instruction set (adjust as needed)
+) 
+set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /LTCG")
+
 elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
   message(STATUS "Building for Clang")
   add_compile_options("$<$<CONFIG:Release>:-march=native>") # "-Weffc++" -Ofast -march=native -g -fno-omit-frame-pointer -gdwarf-2 (flto not good) -Wextra -pedantic
   add_compile_options("$<$<CONFIG:Release>:-Ofast>")
   add_compile_options("$<$<CONFIG:Release>:-ffast-math>")
- # add_compile_options("$<$<CONFIG:Release>:-fopenmp>")
+  add_compile_options("$<$<CONFIG:Release>:-fopenmp>")
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   message(STATUS "Building for GCC")
   add_compile_options("$<$<CONFIG:Release>:-march=native>") 

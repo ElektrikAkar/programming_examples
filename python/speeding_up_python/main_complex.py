@@ -1,7 +1,7 @@
 import cpp.speeding_up as spd
 import numpy as np
 import time
-from numba import jit, njit, vectorize
+from numba import jit, njit, prange
 from math import sin, log
 
 N = 10_000_000
@@ -62,22 +62,47 @@ result = complex_operation_numba(numbers)
 end = time.time()
 print(f"Numba  result:\t{result}\t Time: {end-start}, (w/o compilation)")
 
-# ----
+
+@njit(fastmath = True, parallel=True)
+def complex_operation_numba_par(numbers):
+    total = 0
+    for i in prange(numbers.size):
+        value = numbers[i]
+        a = 2.34 if value < 0.5 else 1.44
+        value = sin((a * value)**2)
+        if i % 7 == 0:
+            value += 5    
+
+        total += 10 * log(value + 10)
+    return total
+
 start = time.time()
-result = spd.complex_operation_cpp(numbers)
+result = complex_operation_numba_par(numbers)
+end = time.time()
+print(f"Numba  result:\t{result}\t Time: {end-start}, (with compilation)")
+start = time.time()
+result = complex_operation_numba_par(numbers)
+end = time.time()
+print(f"Numba  result:\t{result}\t Time: {end-start}, (w/o compilation)")
+
+# ----
+numbers_cpp = spd.vector_double(numbers)  
+
+start = time.time()
+result = spd.complex_operation_cpp(numbers_cpp)
 end = time.time()
 cpp1 = end-start
 print(f"C++    result:\t{result}\t Time: {cpp1}")
 
 start = time.time()
-result = spd.complex_operation_cpp_par(numbers)
+result = spd.complex_operation_cpp_par(numbers_cpp)
 end = time.time()
 cpp2 = end-start
 print(f"C++    result:\t{result}\t Time: {cpp2}, (parallel)")
 
 
 start = time.time()
-result = spd.cpp_no_op(numbers)
+result = spd.cpp_no_op(numbers_cpp)
 end = time.time()
 no_op_time = end-start
 print(f"C++    result:\t{result}\t\t\t Time: {no_op_time}, (no-op)")

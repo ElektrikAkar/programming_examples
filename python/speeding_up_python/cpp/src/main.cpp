@@ -1,9 +1,14 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/numpy.h>
+#include <pybind11/stl_bind.h>
 
 
 #include "spd.hpp"
+
+#include <vector>
+
+PYBIND11_MAKE_OPAQUE(std::vector<double>);
 
 PYBIND11_MODULE(speeding_up, m)
 {
@@ -19,4 +24,5 @@ PYBIND11_MODULE(speeding_up, m)
   m.def("complex_operation_cpp_par", &complex_operation_cpp_par, "A function that performs conditional operations on N random numbers (parallel)");
 
   m.def("cpp_no_op", &cpp_no_op, "A function that does nothing");
+  pybind11::bind_vector<std::vector<double>>(m, "vector_double");
 }
