@@ -24,8 +24,8 @@ subprocess.run(
         "-j4",
         "--config",
         "Release",
-        "--target",
-        "speeding_up",
+        # "--target",
+        # "speeding_up",
     ],
     check=True,
 )
