@@ -6,3 +6,5 @@ CPMAddPackage(
   NAME pybind11
   URL "https://github.com/pybind/pybind11/archive/refs/tags/v2.11.1.tar.gz"
 )
+
+CPMAddPackage("gh:wjakob/nanobind@1.9.0")

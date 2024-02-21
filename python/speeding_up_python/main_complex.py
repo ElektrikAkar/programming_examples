@@ -1,4 +1,5 @@
 import cpp.speeding_up as spd
+import cpp.speeding_up_nb as spd_nb
 import numpy as np
 import time
 from numba import jit, njit, prange
@@ -6,6 +7,8 @@ from math import sin, log
 
 N = 10_000_000
 numbers = np.random.rand(N)
+numbers_cpp = spd.vector_double(numbers)  
+numbers_cpp_nb = spd_nb.vector_double(numbers)  
 
 
 def complex_operation_py(numbers):
@@ -87,8 +90,6 @@ end = time.time()
 print(f"Numba  result:\t{result}\t Time: {end-start}, (w/o compilation)")
 
 #%%
-numbers_cpp = spd.vector_double(numbers)  
-
 start = time.time()
 result = spd.complex_operation_cpp(numbers_cpp)
 end = time.time()
@@ -101,11 +102,15 @@ end = time.time()
 cpp2 = end-start
 print(f"C++    result:\t{result}\t Time: {cpp2}, (parallel)")
 
+#%%
+start = time.time()
+result = spd_nb.complex_operation_cpp(numbers_cpp_nb)
+end = time.time()
+cpp1 = end-start
+print(f"C++    result:\t{result}\t Time: {cpp1} (nanobind)")
 
-# start = time.time()
-# result = spd.cpp_no_op(numbers_cpp)
-# end = time.time()
-# no_op_time = end-start
-# print(f"C++    result:\t{result}\t\t\t Time: {no_op_time}, (no-op)")
-# print(f"C++    result:\t{result}\t Time: {cpp1 - no_op_time}, (no-op subtracted)")
-# print(f"C++    result:\t{result}\t Time: {cpp2 - no_op_time}, (parallel, no-op subtracted)")
+start = time.time()
+result = spd_nb.complex_operation_cpp_par(numbers_cpp_nb)
+end = time.time()
+cpp2 = end-start
+print(f"C++    result:\t{result}\t Time: {cpp2}, (nanobind, parallel)")
