@@ -9,7 +9,7 @@ include(src/cmake/Dependencies.cmake)
 pybind11_add_module(speeding_up 
         src/main.cpp)
 
-nanobind_add_module(speeding_up_nb NOMINSIZE
+nanobind_add_module(speeding_up_nb
     src/main_nanobind.cpp)
 
 add_executable(speeding_up_test

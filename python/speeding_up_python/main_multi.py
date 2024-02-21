@@ -89,14 +89,16 @@ print(f"C++    result:\t{result}\t Time: {cpp2}, (parallel)")
 
 #%%
 start = time.time()
-result = spd.multi_operation_cpp(numbers_cpp_nb)
+result = spd_nb.multi_operation_cpp(numbers_cpp_nb)
 end = time.time()
 cpp1 = end-start
 print(f"C++    result:\t{result}\t Time: {cpp1}, (nanobind)")
 
 start = time.time()
-result = spd.multi_operation_cpp_par(numbers_cpp_nb)
+result = spd_nb.multi_operation_cpp_par(numbers_cpp_nb)
 end = time.time()
 cpp2 = end-start
 print(f"C++    result:\t{result}\t Time: {cpp2}, (nanobind, parallel)")
 
+
+# %%
